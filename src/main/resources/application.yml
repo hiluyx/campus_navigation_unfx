@@ -1,0 +1,42 @@
+spring:
+  #配置数据库远程连接
+  datasource:
+    url: jdbc:mysql://139.199.66.139:3308/dachuang
+    username: root
+    password: "SCAUdachuang@database12138."
+    driver-class-name: com.mysql.jdbc.Driver
+    #配置连接池
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      idle-timeout: 60000
+      maximum-pool-size: 30
+      minimum-idle: 10
+  jpa:
+    properties:
+      hibernate:
+        hbm2dd1:
+          auto: true
+        ddl-auto: updata
+        enable_lazy_load_no_trans: true
+      dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    open-in-view: false
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+
+server:
+  max-http-header-size: 1MB
+  port: 8080
+  #证书
+  ssl:
+    key-store: classpath:scaudachuang.xyz.jks
+    key-password: SCAUdachuang01
+    key-store-type: JKS
+
+wx:
+  WX_LOGIN_URL: https://api.weixin.qq.com/sns/jscode2session
+  WX_LOGIN_APP_ID: wx00c086a052dec609
+  WX_LOGIN_SECRET: b021528b0c7597b6485fee87ce082a57
+  WX_LOGIN_GRANT_TYPE: authorization_code

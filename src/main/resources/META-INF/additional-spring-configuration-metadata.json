@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "wx.WX_LOGIN_URL",
+      "type": "java.lang.String",
+      "description": "Description for wx.WX_LOGIN_URL."
+    },
+    {
+      "name": "wx.WX_LOGIN_APP_ID",
+      "type": "java.lang.String",
+      "description": "Description for wx.WX_LOGIN_APP_ID."
+    },
+    {
+      "name": "wx.WX_LOGIN_SECRET",
+      "type": "java.lang.String",
+      "description": "Description for wx.WX_LOGIN_SECRET."
+    },
+    {
+      "name": "wx.WX_LOGIN_GRANT_TYPE",
+      "type": "java.lang.String",
+      "description": "Description for wx.WX_LOGIN_GRANT_TYPE."
+    }
+  ] }
