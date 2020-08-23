@@ -16,9 +16,10 @@ public interface CommentDAO extends JpaRepository<Comment,Integer>, JpaSpecifica
     List<Comment> findAllByUid(int uid);
     void deleteByUid(int uId);
 
-//    @Transactional
-//    @Query(value = "update user set userName = ?1 where openId = ?2")
-//    @Modifying
+    @Transactional
+    @Query(value = "update Comment set reports = ?1 where id = ?2")
+    @Modifying
+    void updateReportsOfComment(int reports,int id);
 
 //    Page<Comment> findCommentsByBidEqualsOrderByNumberOfPraiseAsc(int bid);
 

@@ -26,13 +26,11 @@ public class CommentServiceImpl implements CommentService {
     public Page<Comment> findByPage(int page, int size, int bId,String sortKey) {
         Pageable pageable = PageRequest.of(page,size, Sort.Direction.DESC,sortKey,"timeOfCommentary");
         return commentDAO.findAll((Specification<Comment>) (root, criteriaQuery, criteriaBuilder) -> {
-
             List<Predicate> predicatesList = new ArrayList<>();
             //动态sql
             predicatesList.add(criteriaBuilder.equal(root.get("bid"),bId));
             Predicate[] p = new Predicate[predicatesList.size()];
             return criteriaBuilder.and(predicatesList.toArray(p));
-
         }, pageable);
     }
 
@@ -48,6 +46,11 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<Comment> findAll() {
         return commentDAO.findAll();
+    }
+
+    @Override
+    public void updateReportsOfComment(Comment comment) {
+        commentDAO.updateReportsOfComment(comment.getReports() + 1,comment.getId());
     }
 
     @Override

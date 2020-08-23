@@ -22,6 +22,8 @@ public class Comment implements Serializable,Data {
     private int id;//主键
 
 
+    @Column(name = "reports")
+    private int reports;
     /**
      * json context
      *
