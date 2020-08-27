@@ -3,8 +3,6 @@ package com.scaudachuang.campus_navigation_unfx.service.impl;
 import com.scaudachuang.campus_navigation_unfx.DAO.BuildingDAO;
 import com.scaudachuang.campus_navigation_unfx.entity.Building;
 import com.scaudachuang.campus_navigation_unfx.service.BuildingService;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
