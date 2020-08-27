@@ -16,6 +16,7 @@ import java.util.Date;
 public class User implements Serializable,Data {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "open_id")

@@ -47,9 +47,9 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/login")
-public class LoginController  {
+public class UserController {
 
-    private final Logger logger = LoggerFactory.getLogger(LoginController.class);
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Resource

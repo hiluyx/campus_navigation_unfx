@@ -20,7 +20,7 @@ return建筑实体类building
 @Setter
 @RestController
 @RequestMapping("/sendImage")
-public class SendImage {
+public class BuildingController {
 
     @Resource
     private BuildingService buildingService;

@@ -44,17 +44,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> findAll() {
-        return commentDAO.findAll();
-    }
-
-    @Override
     public void updateReportsOfComment(Comment comment) {
         commentDAO.updateReportsOfComment(comment.getReports() + 1,comment.getId());
     }
 
-    @Override
-    public void deleteComments(List<Comment> commentList) {
-        commentDAO.deleteInBatch(commentList);
-    }
 }

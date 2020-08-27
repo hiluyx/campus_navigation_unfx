@@ -21,13 +21,8 @@ public class Comment implements Serializable,Data {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;//主键
 
-
     @Column(name = "reports")
     private int reports;
-    /**
-     * json context
-     *
-     * **/
 
     @Column(name = "b_id",insertable = false,updatable = false)
     private int bid;
@@ -46,19 +41,15 @@ public class Comment implements Serializable,Data {
     @Column(name = "number_of_praise")
     private int numberOfPraise;//点赞次数
 
-    /**    **/
-
-
-
-    @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
-    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false,fetch = FetchType.LAZY)
-    @JoinColumn(name = "b_id")
-    private Building building;
-
-    @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
-    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false,fetch = FetchType.LAZY)
-    @JoinColumn(name = "u_id")
-    private User user;
+//    @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
+//    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false,fetch = FetchType.LAZY)
+//    @JoinColumn(name = "b_id")
+//    private Building building;
+//
+//    @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
+//    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false,fetch = FetchType.LAZY)
+//    @JoinColumn(name = "u_id")
+//    private User user;
 
     @Override
     public String toString() {
