@@ -16,6 +16,9 @@ request小程序相机发来拍摄图片
 return建筑实体类building
  */
 
+/**
+ * @author best lu
+ */
 @Getter
 @Setter
 @RestController
@@ -51,7 +54,8 @@ public class BuildingController {
     }
 
     public static File multipartFileToFile(MultipartFile multipartFile) throws IOException {
-        String fileRealName = multipartFile.getOriginalFilename();//获得原始文件名;
+        String fileRealName = multipartFile.getOriginalFilename();
+        //获得原始文件名;
         InputStream ins = multipartFile.getInputStream();
         assert fileRealName != null;
         File file = new File(fileRealName);

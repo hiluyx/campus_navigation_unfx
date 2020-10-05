@@ -39,6 +39,7 @@ public class CommentServiceImpl implements CommentService {
         return commentDAO.findAllByUid(uId);
     }
 
+    @Override
     public void addComment(Comment comment){
         commentDAO.save(comment);
     }
