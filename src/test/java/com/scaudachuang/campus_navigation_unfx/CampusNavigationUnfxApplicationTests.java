@@ -9,11 +9,4 @@ import javax.annotation.Resource;
 @SpringBootTest
 class CampusNavigationUnfxApplicationTests {
 
-    @Resource
-    private NoticeService noticeService;
-    @Test
-    void contextLoads() {
-        System.out.println(noticeService.getLatestRelease());
-    }
-
 }

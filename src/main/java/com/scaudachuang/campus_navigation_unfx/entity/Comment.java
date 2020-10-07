@@ -24,10 +24,10 @@ public class Comment implements Serializable,Data {
     @Column(name = "reports")
     private int reports;
 
-    @Column(name = "b_id",insertable = false,updatable = false)
+    @Column(name = "b_id")
     private int bid;
 
-    @Column(name = "u_id",insertable = false,updatable = false)
+    @Column(name = "u_id")
     private int uid;
 
     @Column(name = "message")
@@ -51,10 +51,17 @@ public class Comment implements Serializable,Data {
 //    @JoinColumn(name = "u_id")
 //    private User user;
 
+
     @Override
     public String toString() {
-        return "{Comment:"+this.id+",\n" +
-                "\t\t\t["+this.message+","+this.timeOfCommentary+","+this.numberOfPraise+"]\n" +
-                "\t\t}";
+        return "Comment{" +
+                "id=" + id +
+                ", reports=" + reports +
+                ", bid=" + bid +
+                ", uid=" + uid +
+                ", message='" + message + '\'' +
+                ", timeOfCommentary=" + timeOfCommentary +
+                ", numberOfPraise=" + numberOfPraise +
+                '}';
     }
 }

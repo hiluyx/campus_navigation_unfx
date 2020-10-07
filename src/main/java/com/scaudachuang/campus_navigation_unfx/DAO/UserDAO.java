@@ -21,4 +21,8 @@ public interface UserDAO extends JpaRepository<User,Integer> {
     @Query(value = "update user set currLogTime = ?1 where openId = ?2")
     @Modifying
     void updateUserCurrLogTimeByOpenId(Date currLogTime, String openId);
+
+    @Transactional
+    @Query(value = "select u.id from user u where u.openId = ?1 ")
+    int getUserIdByOpenId(String openId);
 }

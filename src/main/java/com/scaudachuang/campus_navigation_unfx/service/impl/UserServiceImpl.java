@@ -33,8 +33,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String insertRegUser(JSONObject userInfo,String openId,String sessionKey) {
-        String id = RandomString.getRandomString(10);
         String user_name;
+
         User insert_user = new User();
 
         insert_user.setOpenId(openId);
@@ -45,14 +45,16 @@ public class UserServiceImpl implements UserService {
 
         insert_user.setCurrLogTime(new Date());
 
-        insert_user.setId(Integer.parseInt(id));
-
         insert_user.setUserInfo(userInfo.toJSONString());
 
         insert_user.setUserName(userInfo.getString("nickName"));
 
         userDAO.save(insert_user);
+
         user_name = insert_user.getUserName();
+
+        int id = userDAO.getUserIdByOpenId(openId);
+
         return user_name + " " + id;
     }
 
