@@ -1,12 +1,21 @@
 package com.scaudachuang.campus_navigation_unfx.utils.http;
 
+import com.alibaba.fastjson.JSONObject;
+import com.scaudachuang.campus_navigation_unfx.POJO.FlaskServerResponse;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -27,17 +36,58 @@ public class HttpClientUtil {
         URI uri = builder.build();
         // 创建http GET请求
         HttpGet httpGet = new HttpGet(uri);
+
+        httpGet.setConfig(RequestConfig
+                .custom()
+                .setConnectTimeout(5000)
+                .build());
         // 执行请求
         response = httpclient.execute(httpGet);
         // 判断返回状态是否为200
         if (response.getStatusLine().getStatusCode() == 200) {
             resultString = EntityUtils.toString(response.getEntity(), "UTF-8");
-        }try {
+        }
+        try {
             response.close();
             httpclient.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return resultString;
+    }
+
+    public static FlaskServerResponse doPost2Flask(File img, String host, String port, String route) throws URISyntaxException, IOException {
+        URIBuilder builder = new URIBuilder("http://" + host +":"+ port + "/" + route);
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        HttpPost upload = new HttpPost(builder.build());
+
+        MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
+
+        entityBuilder.addPart("file",new FileBody(img));
+
+        upload.setEntity(entityBuilder.build());
+
+        upload.setConfig(RequestConfig
+                .custom()
+                .setConnectTimeout(5000)
+                .build());
+
+        CloseableHttpResponse response = httpclient.execute(upload);
+
+        FlaskServerResponse ret = new FlaskServerResponse();
+
+        try{
+            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
+                HttpEntity responseEntity = response.getEntity();
+                JSONObject reObj = JSONObject.parseObject(EntityUtils.toString(responseEntity, "utf-8"));
+                ret.setId(Integer.parseInt(reObj.getString("b_id")));
+                ret.setBuildingName(reObj.getString("building_name"));
+            }
+        }finally {
+            response.close();
+            httpclient.close();
+        }
+        return ret;
     }
 }

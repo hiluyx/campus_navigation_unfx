@@ -26,8 +26,11 @@ public class Building implements Serializable,Data {
     private String name;
     //建筑名字
 
-    @Column(name = "position",columnDefinition = "decimal                        null comment '经纬度'")
-    private BigDecimal position;
+    @Column(name = "latitude")
+    private double latitude;
+
+    @Column(name = "longitude")
+    private double longitude;
     //问地图
 
     @Column(name = "brief_introduction",columnDefinition = "varchar(255) default 'Unknown' null comment '简介'")
@@ -58,11 +61,16 @@ public class Building implements Serializable,Data {
 
     @Override
     public String toString() {
-        return "{Building:"+this.id+",\n" +
-                "\t["+this.getName()+",\n" +
-                //"\t\t"+this.getComments()+",\n" +
-                "\t"+this.getPosition()+"]\n" +
-                "}";
+        return "Building{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", briefIntroduction='" + briefIntroduction + '\'' +
+                ", numberOfBrowse=" + numberOfBrowse +
+                ", numberOfComment=" + numberOfComment +
+                ", img='" + img + '\'' +
+                '}';
     }
 
 

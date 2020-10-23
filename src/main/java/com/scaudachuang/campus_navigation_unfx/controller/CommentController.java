@@ -44,17 +44,8 @@ public class CommentController {
     }
 
     @RequestMapping(value = "/save",method = RequestMethod.POST)
-    public String saveComments(@RequestBody Comment comment){
-
-        String response = "Message: ";
-        try{
-            System.out.println(comment);
-            comment.setTimeOfCommentary(new Date());
-            commentService.addComment(comment);
-            response += "Done!";
-        }catch (Exception e){
-            response = e.getMessage();
-        }
-        return response;
+    public void saveComments(@RequestBody Comment comment){
+        comment.setTimeOfCommentary(new Date());
+        commentService.addComment(comment);
     }
 }

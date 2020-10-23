@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.scaudachuang.campus_navigation_unfx.DAO.UserDAO;
 import com.scaudachuang.campus_navigation_unfx.entity.User;
 import com.scaudachuang.campus_navigation_unfx.service.UserService;
-import com.scaudachuang.campus_navigation_unfx.utils.code.RandomString;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -1,8 +1,10 @@
 package com.scaudachuang.campus_navigation_unfx.controller;
 
-import com.scaudachuang.campus_navigation_unfx.POJO.ImageFromWx;
+import com.scaudachuang.campus_navigation_unfx.POJO.FlaskServerResponse;
+import com.scaudachuang.campus_navigation_unfx.config.FlaskServerConfig;
 import com.scaudachuang.campus_navigation_unfx.entity.Building;
 import com.scaudachuang.campus_navigation_unfx.service.BuildingService;
+import com.scaudachuang.campus_navigation_unfx.utils.http.HttpClientUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.*;
+import java.net.URISyntaxException;
 
 /*
 request小程序相机发来拍摄图片
@@ -28,6 +31,9 @@ public class BuildingController {
     @Resource
     private BuildingService buildingService;
 
+    @Resource
+    private FlaskServerConfig flaskServerConfig;
+
     /*
     id查询建筑api
      */
@@ -42,14 +48,17 @@ public class BuildingController {
     上传图片得到建筑api
      */
     @RequestMapping(value = "/image",method = RequestMethod.POST)
-    public Building getBuilding(@RequestParam("img") MultipartFile img) throws IOException {
+    public Building getBuilding(@RequestParam("img") MultipartFile img) throws IOException, URISyntaxException {
         File imgFile = multipartFileToFile(img);
-        ImageFromWx imageFromWx = new ImageFromWx();
-        imageFromWx.setImg(imgFile);
         /*
         调用python模型计算得到id
          */
-        return buildingService.getBuildingById(1);
+        FlaskServerResponse resultFromPyTorch = HttpClientUtil.doPost2Flask(imgFile
+                                            ,flaskServerConfig.getHost()
+                                            ,flaskServerConfig.getPort()
+                                            ,flaskServerConfig.getRoute());
+        if (resultFromPyTorch.getId() == 0) return null;
+        return buildingService.getBuildingById(resultFromPyTorch.getId());
 
     }
 

@@ -19,5 +19,20 @@
       "name": "wx.WX_LOGIN_GRANT_TYPE",
       "type": "java.lang.String",
       "description": "Description for wx.WX_LOGIN_GRANT_TYPE."
+    },
+    {
+      "name": "flask.PORT",
+      "type": "java.lang.String",
+      "description": "Description for flask.PORT."
+    },
+    {
+      "name": "flask.HOST",
+      "type": "java.lang.String",
+      "description": "Description for flask.HOST."
+    },
+    {
+      "name": "flask.ROUTE",
+      "type": "java.lang.String",
+      "description": "Description for flask.ROUTE."
     }
   ] }

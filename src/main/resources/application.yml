@@ -43,3 +43,8 @@ wx:
   WX_LOGIN_APP_ID: wx00c086a052dec609
   WX_LOGIN_SECRET: b021528b0c7597b6485fee87ce082a57
   WX_LOGIN_GRANT_TYPE: authorization_code
+
+flask:
+  HOST: localhost
+  PORT: 9001
+  ROUTE: predict
