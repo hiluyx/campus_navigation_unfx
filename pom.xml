@@ -18,6 +18,11 @@
     </properties>
 
     <dependencies>
+        <!-- 原生 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <!-- 连接 -->
         <dependency><!-- jpa与数据库MySQL -->
             <groupId>org.springframework.boot</groupId>
@@ -29,11 +34,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.42</version>
             <scope>runtime</scope>
-        </dependency>
-        <!-- 原生 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
