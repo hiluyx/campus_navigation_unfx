@@ -31,9 +31,6 @@ public class BuildingController {
     @Resource
     private BuildingService buildingService;
 
-    @Resource
-    private FlaskServerConfig flaskServerConfig;
-
     /*
     id查询建筑api
      */
@@ -49,37 +46,27 @@ public class BuildingController {
      */
     @RequestMapping(value = "/image",method = RequestMethod.POST)
     public Building getBuilding(@RequestParam("img") MultipartFile img) throws IOException, URISyntaxException {
-        File imgFile = multipartFileToFile(img);
-        /*
-        调用python模型计算得到id
-         */
-        FlaskServerResponse resultFromPyTorch = HttpClientUtil.doPost2Flask(imgFile
-                                            ,flaskServerConfig.getHost()
-                                            ,flaskServerConfig.getPort()
-                                            ,flaskServerConfig.getRoute());
-        if (resultFromPyTorch.getId() == 0) return null;
-        return buildingService.getBuildingById(resultFromPyTorch.getId());
-
+        return buildingService.getBuildingFromFlaskServer(img);
     }
 
-    public static File multipartFileToFile(MultipartFile multipartFile) throws IOException {
-        String fileRealName = multipartFile.getOriginalFilename();
-        //获得原始文件名;
-        InputStream ins = multipartFile.getInputStream();
-        assert fileRealName != null;
-        File file = new File(fileRealName);
-        try {
-            OutputStream os = new FileOutputStream(file);
-            int bytesRead;
-            byte[] buffer = new byte[8192];
-            while ((bytesRead = ins.read(buffer, 0, 8192)) != -1) {
-                os.write(buffer, 0, bytesRead);
-            }
-            os.close();
-            ins.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return file;
-    }
+//    public static File multipartFileToFile(MultipartFile multipartFile) throws IOException {
+//        String fileRealName = multipartFile.getOriginalFilename();
+//        //获得原始文件名;
+//        InputStream ins = multipartFile.getInputStream();
+//        assert fileRealName != null;
+//        File file = new File(fileRealName);
+//        try {
+//            OutputStream os = new FileOutputStream(file);
+//            int bytesRead;
+//            byte[] buffer = new byte[8192];
+//            while ((bytesRead = ins.read(buffer, 0, 8192)) != -1) {
+//                os.write(buffer, 0, bytesRead);
+//            }
+//            os.close();
+//            ins.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return file;
+//    }
 }

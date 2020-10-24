@@ -9,6 +9,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -17,6 +18,7 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
@@ -56,7 +58,11 @@ public class HttpClientUtil {
         return resultString;
     }
 
-    public static FlaskServerResponse doPost2Flask(File img, String host, String port, String route) throws URISyntaxException, IOException {
+    public static FlaskServerResponse doPost2Flask(InputStream img,
+                                                   String fileName,
+                                                   String host,
+                                                   String port,
+                                                   String route) throws URISyntaxException, IOException {
         URIBuilder builder = new URIBuilder("http://" + host +":"+ port + "/" + route);
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
@@ -64,7 +70,8 @@ public class HttpClientUtil {
 
         MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
 
-        entityBuilder.addPart("file",new FileBody(img));
+
+        entityBuilder.addBinaryBody("file",img, ContentType.MULTIPART_FORM_DATA,fileName);
 
         upload.setEntity(entityBuilder.build());
 

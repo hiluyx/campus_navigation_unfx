@@ -1,11 +1,9 @@
 package com.scaudachuang.campus_navigation_unfx;
 
-import com.scaudachuang.campus_navigation_unfx.POJO.FlaskServerResponse;
-import com.scaudachuang.campus_navigation_unfx.utils.http.HttpClientUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Objects;
