@@ -1,8 +1,10 @@
 package com.scaudachuang.campus_navigation_unfx.controller;
 
 import com.scaudachuang.campus_navigation_unfx.POJO.CommentParameters;
+import com.scaudachuang.campus_navigation_unfx.POJO.InfoBound2SingleComment;
 import com.scaudachuang.campus_navigation_unfx.entity.Comment;
 import com.scaudachuang.campus_navigation_unfx.service.CommentService;
+import com.scaudachuang.campus_navigation_unfx.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,6 +21,13 @@ public class CommentController {
     @Resource
     private CommentService commentService;
 
+    @Resource
+    private UserService userService;
+
+    @GetMapping(value = "/getUserNameAndAvatar/{u_id}")
+    public InfoBound2SingleComment getUserNameAndAvatar(@PathVariable int u_id){
+        return userService.getNameAndAvatar(u_id);
+    }
 //    /**
 //     * 此方法用于前端，用户点击评论，查看目前建筑（已识别出来）的第几页评论内容。
 //     *     @param buildingId 建筑的主键（与comment表级联）作为查询的条件

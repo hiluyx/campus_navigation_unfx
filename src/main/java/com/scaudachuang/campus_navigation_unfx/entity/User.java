@@ -28,8 +28,8 @@ public class User implements Serializable,Data {
     @Column(name = "user_name")
     private String userName;
 
-    @Column(name = "user_info")
-    private String userInfo;
+    @Column(name = "user_avatar")
+    private String userAvatar;
 
     @Column(name = "curr_log_time")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

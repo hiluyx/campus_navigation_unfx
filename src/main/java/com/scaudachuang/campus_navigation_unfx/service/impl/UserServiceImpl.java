@@ -2,6 +2,7 @@ package com.scaudachuang.campus_navigation_unfx.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.scaudachuang.campus_navigation_unfx.DAO.UserDAO;
+import com.scaudachuang.campus_navigation_unfx.POJO.InfoBound2SingleComment;
 import com.scaudachuang.campus_navigation_unfx.entity.User;
 import com.scaudachuang.campus_navigation_unfx.service.UserService;
 import org.springframework.stereotype.Service;
@@ -44,7 +45,7 @@ public class UserServiceImpl implements UserService {
 
         insert_user.setCurrLogTime(new Date());
 
-        insert_user.setUserInfo(userInfo.toJSONString());
+        insert_user.setUserAvatar(userInfo.getString("avatarUrl"));
 
         insert_user.setUserName(userInfo.getString("nickName"));
 
@@ -65,5 +66,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUsers(List<User> userList) {
         userDAO.deleteInBatch(userList);
+    }
+
+    @Override
+    public InfoBound2SingleComment getNameAndAvatar(int id) {
+        String name = userDAO.getUserName(id);
+        String avatar = userDAO.getUserAvatar(id);
+        return new InfoBound2SingleComment(name,avatar);
     }
 }

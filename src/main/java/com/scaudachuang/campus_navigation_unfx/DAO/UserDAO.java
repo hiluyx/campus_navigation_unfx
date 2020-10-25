@@ -1,5 +1,6 @@
 package com.scaudachuang.campus_navigation_unfx.DAO;
 
+import com.scaudachuang.campus_navigation_unfx.POJO.InfoBound2SingleComment;
 import com.scaudachuang.campus_navigation_unfx.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -25,4 +26,16 @@ public interface UserDAO extends JpaRepository<User,Integer> {
     @Transactional
     @Query(value = "select u.id from user u where u.openId = ?1 ")
     int getUserIdByOpenId(String openId);
+
+    @Transactional
+    @Query(value = "select u.userAvatar from user u where u.id = ?1 ")
+    String getUserAvatar(int id);
+
+    @Transactional
+    @Query(value = "select u.userName from user u where u.id = ?1 ")
+    String getUserName(int id);
+
+//    @Transactional
+//    @Query(value = "select u.userName, u.userAvatar from user u where u.id = ?1 ")
+//    InfoBound2SingleComment getUserNameAndAvatar(int id);
 }

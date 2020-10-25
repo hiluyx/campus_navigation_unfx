@@ -30,9 +30,6 @@ public class Comment implements Serializable,Data {
     @Column(name = "u_id")
     private int uid;
 
-    @Column(name = "com_name")
-    private String comName;
-
     @Column(name = "message")
     private String message;//内容
 

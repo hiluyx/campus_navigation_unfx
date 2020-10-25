@@ -1,6 +1,7 @@
 package com.scaudachuang.campus_navigation_unfx.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.scaudachuang.campus_navigation_unfx.POJO.InfoBound2SingleComment;
 import com.scaudachuang.campus_navigation_unfx.POJO.LoginParameters;
 import com.scaudachuang.campus_navigation_unfx.POJO.LoginResult;
 import com.scaudachuang.campus_navigation_unfx.config.WxAppConfig;
@@ -13,10 +14,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.crypto.BadPaddingException;
@@ -58,6 +56,11 @@ public class UserController {
     @Resource
     private WxAppConfig wxAppConfig;
 
+    @GetMapping(value = "/getUserNameAndAvatar/{u_id}")
+    public InfoBound2SingleComment getUserNameAndAvatar(@PathVariable int u_id){
+        return userService.getNameAndAvatar(u_id);
+    }
+
     /**
      * 入库
      * @return 自定义登陆状态String
@@ -97,11 +100,7 @@ public class UserController {
                     userId);
 
             return ret;
-        } catch (NoSuchAlgorithmException | BadPaddingException |
-                InvalidKeyException | InvalidAlgorithmParameterException |
-                NoSuchPaddingException | InvalidParameterSpecException |
-                NoSuchProviderException | IllegalBlockSizeException |
-                IOException | WxConnectionException e) {
+        } catch (Exception e) {
             ret = new LoginResult(
                     500,
                     "Decryption failed.",
@@ -130,9 +129,7 @@ public class UserController {
         else return jsonObject;
     }
 
-    public static JSONObject getUserInfo(String encryptedData,String sessionKey,String iv) throws NoSuchPaddingException,
-            NoSuchAlgorithmException, NoSuchProviderException, InvalidParameterSpecException, BadPaddingException,
-            IllegalBlockSizeException, InvalidAlgorithmParameterException, InvalidKeyException {
+    public static JSONObject getUserInfo(String encryptedData,String sessionKey,String iv) throws Exception {
         // 被加密的数据
         byte[] dataByte = Base64.decode(encryptedData);
         // 加密秘钥
