@@ -1,6 +1,7 @@
 package com.scaudachuang.campus_navigation_unfx.service.impl;
 
 import com.scaudachuang.campus_navigation_unfx.DAO.BuildingDAO;
+import com.scaudachuang.campus_navigation_unfx.POJO.BuildingLocation;
 import com.scaudachuang.campus_navigation_unfx.POJO.FlaskServerResponse;
 import com.scaudachuang.campus_navigation_unfx.config.FlaskServerConfig;
 import com.scaudachuang.campus_navigation_unfx.entity.Building;
@@ -31,8 +32,20 @@ public class BuildingServiceImpl implements BuildingService {
     }
 
     @Override
-    public List<Building> finAll() {
-        return buildingDAO.findAll();
+    public BuildingLocation getLocationByImage(MultipartFile file) throws IOException, URISyntaxException {
+
+        String fileName = file.getOriginalFilename();
+        FlaskServerResponse resultFromPyTorch = HttpClientUtil.doPost2Flask(
+                file.getInputStream()
+                ,fileName
+                ,flaskServerConfig.getHost()
+                ,flaskServerConfig.getPort()
+                ,flaskServerConfig.getRoute());
+
+        BuildingLocation retLocation = new BuildingLocation();
+        retLocation.setLatitude(buildingDAO.findLatitudeById(resultFromPyTorch.getId()));
+        retLocation.setLongitude(buildingDAO.findLongitudeById(resultFromPyTorch.getId()));
+        return retLocation;
     }
 
     @Override

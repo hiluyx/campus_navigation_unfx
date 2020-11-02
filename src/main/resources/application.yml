@@ -35,7 +35,7 @@ server:
   #证书
   ssl:
     key-store: classpath:scaudachuang.xyz.jks
-    key-password: SCAUdachuang01
+    key-password: s942jcfo2artdf
     key-store-type: JKS
 
 wx:
@@ -45,6 +45,6 @@ wx:
   WX_LOGIN_GRANT_TYPE: authorization_code
 
 flask:
-  HOST: localhost
+  HOST: 139.199.66.139
   PORT: 9001
   ROUTE: predict

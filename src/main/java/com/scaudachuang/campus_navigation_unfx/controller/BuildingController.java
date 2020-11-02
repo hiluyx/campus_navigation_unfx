@@ -1,5 +1,6 @@
 package com.scaudachuang.campus_navigation_unfx.controller;
 
+import com.scaudachuang.campus_navigation_unfx.POJO.BuildingLocation;
 import com.scaudachuang.campus_navigation_unfx.POJO.FlaskServerResponse;
 import com.scaudachuang.campus_navigation_unfx.config.FlaskServerConfig;
 import com.scaudachuang.campus_navigation_unfx.entity.Building;
@@ -36,9 +37,7 @@ public class BuildingController {
      */
     @RequestMapping(value = "/getBuilding/{id}",method = RequestMethod.GET)
     public Building getBuilding(@PathVariable int id){
-
         return buildingService.getBuildingById(id);
-
     }
 
     /*
@@ -47,5 +46,13 @@ public class BuildingController {
     @RequestMapping(value = "/image",method = RequestMethod.POST)
     public Building getBuilding(@RequestParam("img") MultipartFile img) throws IOException, URISyntaxException {
         return buildingService.getBuildingFromFlaskServer(img);
+    }
+
+    /*
+    上传图片得到建筑经纬度api
+     */
+    @RequestMapping(value = "/locationByImage",method = RequestMethod.POST)
+    public BuildingLocation getBuildingLocation(@RequestParam("img") MultipartFile img) throws IOException, URISyntaxException {
+        return buildingService.getLocationByImage(img);
     }
 }
